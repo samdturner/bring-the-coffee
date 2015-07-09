@@ -2,11 +2,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'views/map_show_basic',
   'collections/listings',
-  'models/listing',
-  'views/map_show_basic'
+  'views/map_show_markers'
 ], function($, _, Backbone, BasicMapShowView,
-            ListingCollection, ListingModel){
+            ListingCollection, MapMarkerView){
   var AppRouter = Backbone.Router.extend({
     routes: {
       '' : 'searchShow',
@@ -16,16 +16,14 @@ define([
     searchShow: function () {
       var listings = new ListingCollection();
       listings.fetch();
-      var view = new ListingModel({
+      var view = new MapMarkerView({
         collection: listings
       });
-      debugger
       this._swapView(view);
     },
 
     basicMapShow: function () {
       var view = new BasicMapShowView();
-      debugger
       this._swapView(view);
       view.initMap();
     },

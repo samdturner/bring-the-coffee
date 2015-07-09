@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'collections/listing'
+  'collections/listings'
 ], function ($, _, Backbone, ListingCollection) {
     var MapMarkerView = Backbone.View.extend({
       id: "map-canvas",
