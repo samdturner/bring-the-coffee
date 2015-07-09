@@ -2,12 +2,33 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'collections/listings',
+  'models/listing',
   'views/map_show_basic'
-], function($, _, Backbone, BasicMapShowView){
+], function($, _, Backbone, BasicMapShowView,
+            ListingCollection, ListingModel
+){
 
   var AppRouter = Backbone.Router.extend({
     routes: {
-      '/show': 'basicMapShow',
+      '' : 'searchShow',
+      'show' : 'basicMapShow'
+    },
+
+    searchShow: function () {
+      debugger
+      var listings = new ListingCollection();
+      listings.fetch();
+      var view = new ListingModel({
+        collection: listings
+      });
+      this._swapView(view);
+    },
+
+    basicMapShow: function () {
+      var view = new BasicMapShowView();
+      this._swapView(view);
+      view.initMap();
     },
 
     _swapView: function (view) {
@@ -24,13 +45,7 @@ define([
 
   var initialize = function () {
     var router = new AppRouter();
-
-    router.on('basicMapShow', function(){
-      var view = new BasicMapShowView();
-      this._swapView(view);
-      view.initMap();
-    });
-
+    router.$rootEl = $('#container');
     Backbone.history.start();
   };
 
@@ -38,48 +53,3 @@ define([
     initialize: initialize
   };
 });
-
-
-// MapApp.Routers.Router = Backbone.Router.extend({
-//   initialize: function (options) {
-//     this.$rootEl = $(options.rootEl);
-//   },
-//
-//   routes: {
-//     '': 'searchShow',
-//     'basic': 'basicMapShow',
-//     'markers': 'markerMapShow',
-//     'events': 'eventsMapShow',
-//     'search': 'searchShow'
-//   },
-//
-//
-//   markerMapShow: function () {
-//     var listings = new MapApp.Collections.Listings();
-//     listings.fetch();
-//     var view = new MapApp.Views.MarkerMapShow({
-//       collection: listings
-//     });
-//     this._swapView(view);
-//     view.initMap();
-//   },
-//
-//   eventsMapShow: function () {
-//     var listings = new MapApp.Collections.Listings();
-//     listings.fetch();
-//     var view = new MapApp.Views.EventMapShow({
-//       collection: listings
-//     });
-//     this._swapView(view);
-//     view.initMap();
-//   },
-//
-//   searchShow: function () {
-//     var listings = new MapApp.Collections.Listings();
-//     listings.fetch();
-//     var view = new MapApp.Views.SearchShow({
-//       collection: listings
-//     });
-//     this._swapView(view);
-//   }
-// });
