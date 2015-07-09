@@ -6,9 +6,7 @@ define([
   'models/listing',
   'views/map_show_basic'
 ], function($, _, Backbone, BasicMapShowView,
-            ListingCollection, ListingModel
-){
-
+            ListingCollection, ListingModel){
   var AppRouter = Backbone.Router.extend({
     routes: {
       '' : 'searchShow',
@@ -16,7 +14,6 @@ define([
     },
 
     searchShow: function () {
-      debugger
       var listings = new ListingCollection();
       listings.fetch();
       var view = new ListingModel({
