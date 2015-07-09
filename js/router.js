@@ -19,11 +19,13 @@ define([
       var view = new ListingModel({
         collection: listings
       });
+      debugger
       this._swapView(view);
     },
 
     basicMapShow: function () {
       var view = new BasicMapShowView();
+      debugger
       this._swapView(view);
       view.initMap();
     },

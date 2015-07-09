@@ -5,9 +5,9 @@ define([
   'collections/listing'
 ], function ($, _, Backbone, ListingCollection) {
     var MapMarkerView = Backbone.View.extend({
-      attributes: {
-        id: "map-canvas"
-      },
+      id: "map-canvas",
+
+      el: $("#container"),
 
       initialize: function () {
         this._markers = {};
